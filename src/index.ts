@@ -18,7 +18,7 @@ type MiddlewareParam = { rethrowExceptions: boolean };
  *
  * @param func Function to execute and catch+log any uncaught exceptions from
  * @param rethrow Whether to re-throw exceptions or not. Default: `false`
- * @param severity A google-cloud logging severity level to use. Default: `Severity.error`
+ * @param severity A google-cloud logging severity level to use. Default: `LogSeverity.ALERT`
  */
 const exceptionLogger = async (
   func: () => void | (() => Promise<void>),
