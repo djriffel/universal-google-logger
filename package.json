@@ -1,0 +1,47 @@
+{
+  "name": "@driffel/universal-google-logger",
+  "version": "0.8.5",
+  "description": "Log across Google Cloud (GCE VMs, Firebase Functions, etc.) using one library.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "rimraf coverage && jest --coverage",
+    "build": "rimraf dist && tsup",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "google apis client",
+    "google api client",
+    "google apis",
+    "google api",
+    "google",
+    "google cloud platform",
+    "google cloud",
+    "cloud",
+    "google logging",
+    "logging",
+    "stackdriver logging",
+    "stackdriver"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/sync-fetch": "^0.4.3",
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.5",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@google-cloud/logging": "^11.0.0",
+    "sync-fetch": "^0.5.2"
+  }
+}
