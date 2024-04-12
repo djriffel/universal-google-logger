@@ -6,7 +6,8 @@ import {
   loggerAsyncLocalStorage,
   stateWithTraceFromHeaders,
 } from "./traceUtils";
-import LogSeverity = google.logging.type.LogSeverity;
+type LogSeverity = google.logging.type.LogSeverity;
+const LogSeverity = google.logging.type.LogSeverity;
 
 const defaultLogger = new UniversalGoogleLogger(LOGGER_NAME);
 type MiddlewareParam = { rethrowExceptions: boolean };

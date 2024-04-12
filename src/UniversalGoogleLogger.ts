@@ -8,7 +8,8 @@ import {
   getFunctionMetadata,
 } from "./envConst";
 import { loggerAsyncLocalStorage } from "./traceUtils";
-import LogSeverity = google.logging.type.LogSeverity;
+type LogSeverity = google.logging.type.LogSeverity;
+const LogSeverity = google.logging.type.LogSeverity;
 
 const logging = new Logging({ projectId: PROJECT_STRING_ID });
 
