@@ -64,39 +64,39 @@ describe("multiple async logger functions", () => {
 
     type PromiseResolver = (value: void | PromiseLike<void>) => void;
 
-    var thread1PromiseResolve: PromiseResolver;
-    const thread1Promise = new Promise<void>((resolve) => {
-      thread1PromiseResolve = resolve;
+    var task1PromiseResolve: PromiseResolver;
+    const task1Promise = new Promise<void>((resolve) => {
+      task1PromiseResolve = resolve;
     });
 
-    var thread2PromiseResolve: PromiseResolver;
-    const thread2Promise = new Promise<void>((resolve) => {
-      thread2PromiseResolve = resolve;
+    var task2PromiseResolve: PromiseResolver;
+    const task2Promise = new Promise<void>((resolve) => {
+      task2PromiseResolve = resolve;
     });
 
-    var allThreadsPromiseResolve: PromiseResolver;
-    const allThreadsPromise = new Promise<void>((resolve) => {
-      allThreadsPromiseResolve = resolve;
+    var allTasksPromiseResolve: PromiseResolver;
+    const allTasksPromise = new Promise<void>((resolve) => {
+      allTasksPromiseResolve = resolve;
     });
 
     loggerAsyncLocalStorage.run(
       stateWithTraceFromCustomId("ID 1"),
       async () => {
-        customLogger.debug("Thread 1, call 1");
-        await thread1Promise;
-        customLogger.debug("Thread 1, call 2");
-        thread2PromiseResolve();
+        customLogger.debug("Task 1, call 1");
+        await task1Promise;
+        customLogger.debug("Task 1, call 2");
+        task2PromiseResolve();
       }
     );
 
     loggerAsyncLocalStorage.run(
       stateWithTraceFromCustomId("ID 2"),
       async () => {
-        customLogger.debug("Thread 2, call 1");
-        thread1PromiseResolve();
-        await thread2Promise;
-        customLogger.debug("Thread 2, call 2");
-        allThreadsPromiseResolve();
+        customLogger.debug("Task 2, call 1");
+        task1PromiseResolve();
+        await task2Promise;
+        customLogger.debug("Task 2, call 2");
+        allTasksPromiseResolve();
       }
     );
 
@@ -117,19 +117,19 @@ describe("multiple async logger functions", () => {
       trace,
     });
 
-    await allThreadsPromise;
+    await allTasksPromise;
     expect(mockEntry.mock.calls.length).toEqual(4);
 
     expect(mockEntry.mock.calls[0][0]).toEqual(getMetadata(trace1));
-    expect(mockEntry.mock.calls[0][1]).toEqual("Thread 1, call 1");
+    expect(mockEntry.mock.calls[0][1]).toEqual("Task 1, call 1");
 
     expect(mockEntry.mock.calls[1][0]).toEqual(getMetadata(trace2));
-    expect(mockEntry.mock.calls[1][1]).toEqual("Thread 2, call 1");
+    expect(mockEntry.mock.calls[1][1]).toEqual("Task 2, call 1");
 
     expect(mockEntry.mock.calls[2][0]).toEqual(getMetadata(trace1));
-    expect(mockEntry.mock.calls[2][1]).toEqual("Thread 1, call 2");
+    expect(mockEntry.mock.calls[2][1]).toEqual("Task 1, call 2");
 
     expect(mockEntry.mock.calls[3][0]).toEqual(getMetadata(trace2));
-    expect(mockEntry.mock.calls[3][1]).toEqual("Thread 2, call 2");
+    expect(mockEntry.mock.calls[3][1]).toEqual("Task 2, call 2");
   });
 });

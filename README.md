@@ -63,6 +63,10 @@ const app = express().use(
 );
 ```
 
+### Default metadata label:
+
+For improved context, the metadata will automatically include a label named `node_app_version` that is set from `process.env.npm_package_version`. This is auto-populated from the `package.json`'s `version` field whenever running the task through the `npm start` command.
+
 ### Advisory:
 
 This library is not fully tested for all possible environment permutations. It is an MVP (minimum viable product) that has been tested under standard GCE VMs, as well as Firebase Functions (v2) configured under a Cloud Run-based deployment. It _should_ work in various other enviroments, but feedback as well as PR's are welcome (also feel free to inform if any configs, etc. are inaccurate; this is the culmination of a "best effort" in bringing together multiple info sources of varying age).
@@ -88,7 +92,7 @@ There are also helper functions for including the `trace` metadata field which e
 
 ### Environment variable configs (all optional):
 
-- `LOGGER_NAME`: Used to set a name for the default logger instance. Default value: "node-app".
+- `LOGGER_NAME`: Used to set a name for the default logger instance for easier discovery. Default value: "node-app". This value will be attached to the `logName` metadata field.
 - `PROJECT_STRING_ID`: Used to populate the `projectId` parameter of the Logging service in @google-cloud/logging library. This parameter is often provided through built-in env vars, or as a last resort from the metadata server (if using a GCE VM environment).
 - `FUNCTION_REGION`: Used to populate the region/location field in Firebase Function logs. Default value: "us-central1".
 - `LOG_TO_CONSOLE`: Set this to "true" to route logs to console.log instead of using google logging library. Useful for localhost/dev logging.

@@ -1,6 +1,6 @@
 {
   "name": "@driffel/universal-google-logger",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "description": "Log across Google Cloud (GCE VMs, Firebase Functions, etc.) using one library.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -38,6 +38,7 @@
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   },
